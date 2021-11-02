@@ -6,6 +6,10 @@ wn.bgcolor("black")
 wn.setup(width=800, height=600)
 wn.tracer(0)
 
+#Score
+score_left = 0
+score_right = 0
+
 #Paddle Left 
 paddle_left = turtle.Turtle()
 paddle_left.speed(0)
@@ -31,9 +35,17 @@ ball.shape("square")
 ball.color("white")
 ball.penup()
 ball.goto(0, 0)
-
 ball.dx = .1
 ball.dy = .1
+
+#Pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0, 260)
+pen.write("Player Left: 0 Player Right: 0", align="center", font=("Courier", 24, "normal"))
 
 #Function
 def paddle_left_up():
@@ -83,10 +95,16 @@ while True:
     if ball.xcor() > 390:
         ball.goto(0, 0)
         ball.dx *= -1
+        score_left += 1
+        pen.clear()
+        pen.write("Player Left: {} Player Right: {}".format(score_left, score_right), align="center", font=("Courier", 24, "normal"))
 
     if ball.xcor() < -390:
         ball.goto(0, 0)
         ball.dx *= -1
+        score_right += 1
+        pen.clear()
+        pen.write("Player Left: {} Player Right: {}".format(score_left, score_right), align="center", font=("Courier", 24, "normal"))
     
     #Paddle Collision
     if (ball.xcor() > 340 and ball.xcor() < 350) and (ball.ycor() < paddle_right.ycor() + 40 and ball.ycor() > paddle_right.ycor() - 40):
